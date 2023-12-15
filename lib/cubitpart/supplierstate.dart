@@ -1,0 +1,10 @@
+abstract class LieferantZustand{}
+class Anfangszustand extends LieferantZustand{}
+class HerbeiholenLieferantMitErfolgZustand extends LieferantZustand{}
+class HerbeiholenLieferantFehlerZustand extends LieferantZustand{}
+class EinfuegenLieferantMitErfolgZustand extends LieferantZustand{}
+class EinfuegenLieferantFehlerZustand extends LieferantZustand{}
+class LoeschLieferantMitErfolgZustand extends LieferantZustand{}
+class LoeschLieferantFehlerZustand extends LieferantZustand{}
+class AklualisierungLieferantMitErfolgZustand extends LieferantZustand{}
+class AklualisierungLieferantFehlerZustand extends LieferantZustand{}
