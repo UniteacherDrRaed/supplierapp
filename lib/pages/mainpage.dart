@@ -172,11 +172,10 @@ class MainPage extends StatelessWidget {
                                     Icons.add_circle_outline,
                                     color: Colors.pink,
                                   ),
-                                  label: const Text("save a supplier")),
+                                  label: const Text("update a supplier")),
                               OutlinedButton.icon(
                                   onPressed: () {
-                                    Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(builder: (context)=>MainPage()));
+                                    Navigator.pop(context);
 
                                   },
                                   icon: const Icon(
