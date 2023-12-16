@@ -159,6 +159,7 @@ class AddSupplier extends StatelessWidget {
                             onPressed: () {
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(builder: (context)=>MainPage()));
+
                             },
                             icon: const Icon(
                               Icons.reset_tv_outlined,

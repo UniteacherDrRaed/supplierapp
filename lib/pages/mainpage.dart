@@ -6,7 +6,11 @@ import '../cubitpart/suppliercubit.dart';
 import '../cubitpart/supplierstate.dart';
 import '../supplier.dart';
 class MainPage extends StatelessWidget {
-  const MainPage({super.key});
+   MainPage({super.key});
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _addressController = TextEditingController();
+  TextEditingController _phoneController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +24,7 @@ class MainPage extends StatelessWidget {
         ),
         body:  BlocBuilder<LieferanCubit, LieferantZustand>(
         builder: (BuildContext context, LieferantZustand state) {
+          print(state);
           List<Supplier> listsuppliers =
               context
                   .watch<LieferanCubit>()
@@ -32,6 +37,159 @@ class MainPage extends StatelessWidget {
                 itemBuilder: (context, indexsupplier) {
                   Supplier currentsupplier = listsuppliers[indexsupplier];
                   return ListTile(
+                    onLongPress: (){
+                      _nameController.text=currentsupplier.name;
+                      _addressController.text=currentsupplier.address;
+                      _phoneController.text=currentsupplier.phone;
+                      _emailController.text=currentsupplier.email;
+
+                      showDialog(context: context,
+                          builder: (_)=>
+                      AlertDialog(
+                        content: Container(
+                          padding: const EdgeInsets.all(10),
+                          color: Colors.pink.shade50,
+                          child: Column(
+                            children: [
+                              TextField(
+                                controller: _nameController,
+                                autofocus: true,
+                                maxLength: 20,
+                                decoration: InputDecoration(
+                                  hintStyle: const TextStyle(color: Colors.pink),
+                                  hintText: "Enter Supplier Name",
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.pink.shade400,
+                                      ),
+                                      borderRadius:
+                                      const BorderRadius.all(Radius.circular(10.0))),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.orange.shade400,
+                                      ),
+                                      borderRadius:
+                                      const BorderRadius.all(Radius.circular(15.0))),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.deepOrange.shade400,
+                                      ),
+                                      borderRadius:
+                                      const BorderRadius.all(Radius.circular(10.0))),
+                                ),
+                              ),
+                              TextField(
+                                controller: _addressController,
+                                maxLength: 100,
+                                decoration: InputDecoration(
+                                  hintStyle: const TextStyle(color: Colors.pink),
+                                  hintText: "Enter Supplier address",
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.pink.shade400,
+                                      ),
+                                      borderRadius:
+                                      const BorderRadius.all(Radius.circular(10.0))),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.orange.shade400,
+                                      ),
+                                      borderRadius:
+                                      const BorderRadius.all(Radius.circular(15.0))),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.deepOrange.shade400,
+                                      ),
+                                      borderRadius:
+                                      const BorderRadius.all(Radius.circular(10.0))),
+                                ),
+                              ),
+                              TextField(
+                                controller: _phoneController,
+                                maxLength: 20,
+                                decoration: InputDecoration(
+                                  hintStyle: const TextStyle(color: Colors.pink),
+                                  hintText: "Enter Supplier phone",
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.pink.shade400,
+                                      ),
+                                      borderRadius:
+                                      const BorderRadius.all(Radius.circular(10.0))),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.orange.shade400,
+                                      ),
+                                      borderRadius:
+                                      const BorderRadius.all(Radius.circular(15.0))),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.deepOrange.shade400,
+                                      ),
+                                      borderRadius:
+                                      const BorderRadius.all(Radius.circular(10.0))),
+                                ),
+                              ),
+                              TextField(
+                                controller: _emailController,
+                                maxLength: 50,
+                                decoration: InputDecoration(
+                                  hintStyle: const TextStyle(color: Colors.pink),
+                                  hintText: "Enter Supplier email",
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.pink.shade400,
+                                      ),
+                                      borderRadius:
+                                      const BorderRadius.all(Radius.circular(10.0))),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.orange.shade400,
+                                      ),
+                                      borderRadius:
+                                      const BorderRadius.all(Radius.circular(15.0))),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.deepOrange.shade400,
+                                      ),
+                                      borderRadius:
+                                      const BorderRadius.all(Radius.circular(10.0))),
+                                ),
+                              ),
+                              OutlinedButton.icon(
+                                  onPressed: () {
+                                    Supplier supplier = Supplier(
+                                        id:currentsupplier.id,
+                                        name: _nameController.text,
+                                        address: _addressController.text,
+                                        phone: _phoneController.text,
+                                        email: _emailController.text);
+                                    context.read<LieferanCubit>().updateSupplier(supplier);
+
+                                    context.read<LieferanCubit>().fetchsuppliers();
+                                  },
+                                  icon: const Icon(
+                                    Icons.add_circle_outline,
+                                    color: Colors.pink,
+                                  ),
+                                  label: const Text("save a supplier")),
+                              OutlinedButton.icon(
+                                  onPressed: () {
+                                    Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(builder: (context)=>MainPage()));
+
+                                  },
+                                  icon: const Icon(
+                                    Icons.reset_tv_outlined,
+                                    color: Colors.pink,
+                                  ),
+                                  label: const Text("return to List Of Suppliers")),
+                            ],
+                          ),
+                        ),
+
+                      ));
+                    },
                     leading: Text("${currentsupplier.id}"),
                     title: Text(currentsupplier.name),
                     subtitle: Text(currentsupplier.email),
@@ -47,7 +205,7 @@ class MainPage extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton.large(
           onPressed: () {
-            Navigator.of(context).pushReplacement(
+            Navigator.of(context).push(
                 MaterialPageRoute(builder: (context)=>AddSupplier())
             );
 

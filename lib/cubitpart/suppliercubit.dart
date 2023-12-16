@@ -43,12 +43,7 @@ class LieferanCubit extends Cubit<LieferantZustand> {
     }
   }
 
-  f() {
-    addSupplier(Supplier(
-        name: "name1", address: "address1", phone: "phone1", email: "email"));
-    addSupplier(Supplier(
-        name: "name2", address: "address1", phone: "phone1", email: "email"));
-  }
+
 
   Future<List<Supplier>> fetchsuppliers() async {
 
@@ -86,6 +81,23 @@ class LieferanCubit extends Cubit<LieferantZustand> {
       emit(LoeschLieferantMitErfolgZustand());
     } catch (e) {
       emit(LoeschLieferantFehlerZustand());
+      print(e);
+    }
+  }
+
+  updateSupplier(Supplier singlesupplier) async {
+    Database database = await LieferanCubit.supplierDatase();
+    try {
+      await database.update(
+        'supplier',
+        singlesupplier.toMap(),
+        where: 'id = ?',
+        whereArgs: [singlesupplier.id],
+      );
+
+      emit(AklualisierungLieferantMitErfolgZustand());
+    } catch (e) {
+      emit(AklualisierungLieferantFehlerZustand());
       print(e);
     }
   }
