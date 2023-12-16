@@ -35,6 +35,11 @@ class MainPage extends StatelessWidget {
                     leading: Text("${currentsupplier.id}"),
                     title: Text(currentsupplier.name),
                     subtitle: Text(currentsupplier.email),
+                    trailing:  IconButton(onPressed: (){
+                      context.read<LieferanCubit>().removeSupplier(currentsupplier.id!);
+                      context.read<LieferanCubit>().fetchsuppliers();
+                    },
+                        icon:const Icon(Icons.remove,color: Colors.blue,))
                   );
                 }),
           );
@@ -42,6 +47,9 @@ class MainPage extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton.large(
           onPressed: () {
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context)=>AddSupplier())
+            );
 
           },
           child: const Icon(
