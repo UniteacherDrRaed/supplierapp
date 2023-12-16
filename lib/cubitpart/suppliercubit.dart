@@ -11,9 +11,6 @@ class LieferanCubit extends Cubit<LieferantZustand>{
   LieferanCubit():super(Anfangszustand());
 
   List<Supplier> allsuppliers=[ ];
-  TextEditingController nameController=TextEditingController();
-  TextEditingController addressController=TextEditingController();
-  TextEditingController phoneController=TextEditingController();
 
   static Future<Database> supplierDatase() async{
 
@@ -52,7 +49,7 @@ class LieferanCubit extends Cubit<LieferantZustand>{
     addSupplier(Supplier(name: "name2", address: "address1", phone: "phone1", email: "email"));
   }
   Future<List<Supplier>> fetchsuppliers() async{
-
+ f();
     Database database=await LieferanCubit.supplierDatase();
     try {
       List<Map<String,dynamic>> suppliers= await database.query('supplier');
